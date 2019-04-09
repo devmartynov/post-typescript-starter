@@ -276,7 +276,71 @@ const add(arg1: stringOrNumber, arg2: stringOrNumber) => arg1 + arg2; //  Operat
 ```
 TODO: Дописать
 
+## Интерфейсы и классы
+Начнем с `Interfaces`. Что же это такое и что они из себя представляют? По своей сути `Interfaces` это описание структуры 
+сущности, т.е. ее свойств, методов и их типов. Они используются на этапе компиляции для проверки типов, 
+после этого удаляются из кода. Интерфейсы могут быть объявлены спомощью слова `interface`:
 
+Пример:
+```typescript
+interface Car {
+  brand: string;
+  color: string;
+  maxSpeed: number;
+}
 
+declare const getCarBrand = (options: Car) => console.log(options.brand);
+```
+
+В интерфейсах мы также можем указывать необязателные параметра спомощью `?`. Кроме этого интерфейсы могут быть инлайновыми:
+
+Пример:
+```typescript
+declare const getCarBrand = (options: { brand: string; color: string; maxSpeed: number; }) => console.log(options.brand);
+```
+
+Интерфейсы могут наследоваться от других интерфейсов.
+
+Перейдем к классам.
+TS вводит механизм позволяющий скрывать от внешего доступа состояние объекта и управлять доступом к этому состоянию.
+Инкапсуляция. В TS есть три модификатора доступа, а именно `public, private, protected`.
+
+К свойствам и методам класса можно применить модификаторы, если эти модификаторы не применяются, TS считает что они
+установлены в значение `public`.
+
+Пример:
+
+```typescript
+class Car {
+    brand: string;
+    year: number;
+}
+
+class Car {
+    public brand: string;
+    public year: number;
+}
+```
+
+Это две эквивалентые записи.
+Если мы установим свойству/методу модификатор `private`, то к этому свойству/методу нельзя будет обратиться извне после 
+создания экземпляра этого класса.
+
+Пример:
+
+```typescript
+class User {
+    private id: number;
+    
+    constructor(_id: number) {
+        this.id = _id;
+    }
+}
+
+const Denis = new User(1);
+Denis.id = 4; // error: Private member is not accessible
+```
+И последний модификатор `protected`. Единственное отличие его от `private` в том, что к свойству/методу с модификатором 
+`protected` можно обратиться из класса, который наследует класс в котором определено свойство/метод с этим модификатором.
 
 
