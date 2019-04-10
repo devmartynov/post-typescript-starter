@@ -340,7 +340,39 @@ class User {
 const Denis = new User(1);
 Denis.id = 4; // error: Private member is not accessible
 ```
+
 И последний модификатор `protected`. Единственное отличие его от `private` в том, что к свойству/методу с модификатором 
 `protected` можно обратиться из класса, который наследует класс в котором определено свойство/метод с этим модификатором.
+
+Существует также модификатор `readonly` для свойств класса. Свойство с этим модификатором могут определны только 
+конструкторе класса и не могут быть изменены.
+
+### Namespaces
+В TS мы можем определить `Namespaces`, спомощью ключевого слова  `namespace`. Таким образом мы добиваемся того, что мы
+не сможем использовать класс вне контекста `namespace`.
+
+Пример:
+
+```typescript
+namespace FirstNameSpace {
+    class NotExported {
+    }
+    export class NameSpaceClass {
+        id: number;
+    }
+}
+```
+
+Для того чтобы создать экзмеплятр класса, нам необходимо использовать полное имя нэймспейса.
+
+Пример:
+
+```typescript
+let firstNameSpace = new FirstNameSpace.NameSpaceClass(); // error: Property 'NotExported' does not exist on type 'typeof FirstNameSpace'.
+let notExported = new FirstNameSpace.NotExported();
+```
+
+Кроме того, при создании экземпляра класса, которые не был экспортирован, TS выкинет ошибку.
+
 
 
